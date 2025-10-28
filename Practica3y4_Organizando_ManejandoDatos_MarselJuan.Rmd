@@ -207,7 +207,12 @@ Para convertir este conjunto a formato _tidy_ tendremos que agrupar todas las co
 Convierte el dataset `pew_religion` a formato _tidy_ usando `gather`. La columna `income` debe contener una variable de tipo `factor`.
 
 ```{r}
+library(readr)
+load("data/pew_religion.Rdata")
 
+reli_tidy<-gather(pew_religion,key="Income",value="Valores",-religion)
+reli_tidy$Income<-factor(reli_tidy$Income)
+reli_tidy
 ```
 
 Otro ejemplo usando el conjunto de datos `Billboard` que muestra cuando una canción entró en el top 100.
