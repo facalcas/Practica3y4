@@ -280,7 +280,10 @@ Para obtener la versión _tidy_ primero juntamos todos los días en una variable
 Obtén la versión _tidy_ del conjunto de datos `weather` utilizando las funciones `pivot_longer` y `pivot_wider`. Además cambiaremos las columnas `year`, `month` y `dia` por una única variable `fecha`. Para que la operación `pivot_wider` no de error tendremos que eliminar los NA's cuando usemos `pivot_longer`.
 
 ```{r}
-raw%>%pivot_longer(names_to = "dia",values_to = "temp",d1:d31,values_drop_na=T)%>%mutate(dia = as.integer(gsub("d", "", dia)), fecha = as.Date(paste(year, month, dia, sep = "-")))%>%pivot_wider(names_from = "element",values_from = "temp")
+raw%>%
+  pivot_longer(names_to = "dia",values_to = "temp",d1:d31,values_drop_na=T)%>%
+  mutate(dia = as.integer(gsub("d", "", dia)), fecha = as.Date(paste(year, month, dia, sep = "-")))%>%
+  pivot_wider(names_from = "element",values_from = "temp")
 
 ```
 
@@ -339,9 +342,13 @@ En nuestro estudio queremos aplicar una serie de criterios de exclusión sobre l
 * Nota: Revisar el uso de la función filter vista en clase y tener en cuenta los operadores de comparación: igual ==, distinto !=, mayor >, mayor o igual >=, menor <, menor o igual <=.
 
 ```{r }
-
-
-
+planes.f<-planes%>%
+  filter(!str_detect(str_to_lower(manufacturer),".*douglas.*")) %>%
+  filter(between(seats,90,120)) %>%
+  mutate(manufacturer=ifelse(str_detect(str_to_lower(manufacturer),".*airbus.*"),
+                             "AIRBUS COMP",
+                             manufacturer))
+planes.f
 ```
 
 
@@ -350,7 +357,8 @@ En nuestro estudio queremos aplicar una serie de criterios de exclusión sobre l
 Crea un data frame denominado `flights.f` que contenga los vuelos que involucren a los aviones presentes en el data frame `planes.f`. Para ello utiliza algunas de las funciones de **XXX_join** y la variable `tailnum` que es común en ambos data frames. 
 
 ```{r }
-
+#flights.f<-flights.f %>%
+#  inner_join(planes.f %>% select(tailnum),by="tailnum")
 
 ```
 
@@ -359,6 +367,9 @@ Crea un data frame denominado `flights.f` que contenga los vuelos que involucren
 Reasigna los nombres de los data frames `planes.f` y `flights.f` a los nombres originales  `planes` y `flights`.
 
 ```{r }
+
+#planes <- planes.f
+#flights <- fligts.f
 
 ```
 
@@ -371,6 +382,9 @@ Existen variables que, a priori, no tienen demasiado interés para el estudio qu
 * En el data frame  `planes` quédate con todas las variables excepto `speed` y `type`.
 
 ```{r }
+
+#flights<- flights %>%
+#  select(-time_hour,-starts_with("time"))
 
 ```
 
@@ -388,7 +402,11 @@ Incorpora una nueva variable a `flights` denominado `Full_Date` que sea de tipo 
 Utilizando las funciones `group_by`, `summarise` y `filter`, crea un data frame donde se calcule el número de vuelos (`Num_flights`), la distancia media recorrida (`Mean_distance`) y la distancia total recorrida (`Total_distance`) para cada uno de los aviones (`tailnum`) presentes en el conjunto `flights`. Descarta aquellos registros del data frame en los que la variable `tailnum` tenga un valor NA. Utiliza el operador pipe para enlazar las funciones. Almacena el data frame en una variable denominada `Distances_plane`.  
 
 ```{r }
-
+#agregado<- flights %>%
+#  group_by(tailnum) %>%
+#  summarise(Num_flights=n(),
+#            Mean_distance=mean(distance),
+#            Total_distance=sum(distance))
 ```
 
 
