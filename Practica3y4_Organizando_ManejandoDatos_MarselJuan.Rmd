@@ -357,9 +357,10 @@ planes.f
 Crea un data frame denominado `flights.f` que contenga los vuelos que involucren a los aviones presentes en el data frame `planes.f`. Para ello utiliza algunas de las funciones de **XXX_join** y la variable `tailnum` que es común en ambos data frames. 
 
 ```{r }
-#flights.f<-flights.f %>%
-#  inner_join(planes.f %>% select(tailnum),by="tailnum")
+flights.f<-flights %>%
+  inner_join(planes.f %>% select(tailnum),by="tailnum")
 
+flights.f
 ```
 
 ### Ejercicio 8
