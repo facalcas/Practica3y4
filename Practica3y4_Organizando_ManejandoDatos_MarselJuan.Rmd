@@ -327,7 +327,9 @@ load("./data/VuelosNY.Rdata")
 Muestra las primeras muestras de ambos data frames para hacerte una idea de las variables que contienen. ¿Qué diferencia existe entre la información mostrada en ambos data frames?
 
 ```{r }
-
+head(flights)
+head(planes)
+#La clave es que comparten una columna que es tailnum, en flights indica cual es el avión que realizó el viaje, y en planes indica información específica del avión en cuestión.
 ```
 
 ### Ejercicio 6
