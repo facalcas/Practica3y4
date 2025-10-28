@@ -384,8 +384,11 @@ Existen variables que, a priori, no tienen demasiado interés para el estudio qu
 
 ```{r }
 
-#flights<- flights %>%
-#  select(-time_hour,-starts_with("time"))
+flights<- flights %>%
+  select(-time_hour,-ends_with("time"))
+
+planes<- planes %>%
+  select(-speed,-type)
 
 ```
 
