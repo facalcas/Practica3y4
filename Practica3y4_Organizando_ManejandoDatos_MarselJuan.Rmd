@@ -256,7 +256,8 @@ Para pasar a formato _tidy_ necesitamos realizar dos operaciones en este caso. E
 Convierte el conjunto de datos TB en _tidy_ utilizando `gather` y `separate`.
 
 ```{r}
-
+Tb_unido<-gather(raw,key = "sexo_edad",value = "casos",3:18)
+separate(Tb_unido,sexo_edad,c("sexo","edad"),sep = 1)
 ```
 
 
